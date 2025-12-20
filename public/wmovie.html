@@ -15,36 +15,28 @@
 
       <nav class="header-nav">
         <a href="index.html">Home</a>
-        <a href="library.html">Library</a>
-        <a href="settings.html">Settings</a>
+        <a href="#">Library</a>
+        <a href="#">Settings</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <h2>My library</h2>
+    <section class="watch-container">
+      <div class="watch-heading">
+        <p class="watch-label">Now playing</p>
+        <h2 class="watch-title">Film 1</h2>
+      </div>
 
-    <div class="movie_wrapper">
-      <a href="wmovie.html">
-        <div class="movie">
-          <span class="movie_name">Film 1</span>
+      <div class="watch-video">
+        <div class="video-frame">
+          <video controls preload="metadata" poster="assets/film1-poster.jpg">
+            <source src="media/film1.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
-      </a>
-      <a href="wmovie-detail.html">
-        <div class="movie">
-          <span class="movie_name">Film 2</span>
-        </div>
-      </a>
-      <div class="movie">
-        <span class="movie_name">Film 3</span>
       </div>
-      <div class="movie">
-        <span class="movie_name">Film 4</span>
-      </div>
-      <div class="movie">
-        <span class="movie_name">Film 5</span>
-      </div>
-    </div>
+    </section>
   </main>
 
   <footer class="footer">
