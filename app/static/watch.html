@@ -4,19 +4,18 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LocalFlix</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
   <header class="header">
     <div class="header-content">
       <div class="header-left">
-        <a href="index.html"><h1 class="header-title">LocalFlix</h1></a>
+        <a href="/static/index.html"><h1 class="header-title">LocalFlix</h1></a>
       </div>
 
       <nav class="header-nav">
-        <a href="index.html">Home</a>
-        <a href="#">Library</a>
-        <a href="#">Settings</a>
+        <a href="/static/index.html">Home</a>
+        <a href="/static/settings.html">Settings</a>
       </nav>
     </div>
   </header>
@@ -25,14 +24,13 @@
     <section class="watch-container">
       <div class="watch-heading">
         <p class="watch-label">Now playing</p>
-        <h2 class="watch-title">Film 1</h2>
+        <h2 class="watch-title">Film</h2>
       </div>
 
       <div class="watch-video">
         <div class="video-frame">
-          <video controls preload="metadata" poster="assets/film1-poster.jpg">
-            <source src="media/film1.mp4" type="video/mp4">
-            Your browser does not support the video tag.
+          <video controls>
+            <source id="videoSource" type="video/mp4">
           </video>
         </div>
       </div>
@@ -45,8 +43,10 @@
         <a href="https://github.com/ondrejvajda" target="_blank">GitHub</a>
         <a href="mailto:ondrej.vajda@pm.me">Contact</a>
       </div>
-      <p class="footer-copy">© 2025 Ondřej Vajda</p>
+      <p class="footer-copy">© 2026 Ondřej Vajda</p>
     </div>
   </footer>
+
+  <script src="/static/script.js"></script>
 </body>
 </html>
