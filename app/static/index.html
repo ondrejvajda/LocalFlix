@@ -21,7 +21,31 @@
   </header>
 
   <main>
-    <h2>My library</h2>
+    <div class="library-header">
+      <div>
+        <h2>My library</h2>
+        <p class="library-count" id="libraryCount">Loading movies...</p>
+      </div>
+
+      <div class="library-tools">
+        <label class="search-box">
+          <span>Search</span>
+          <input id="movieSearch" type="search" placeholder="Find a movie">
+        </label>
+
+        <label class="sort-box">
+          <span>Sort</span>
+          <select id="movieSort">
+            <option value="az">A-Z</option>
+            <option value="za">Z-A</option>
+            <option value="newest">Newest</option>
+          </select>
+        </label>
+
+        <button class="refresh-button" id="refreshMovies" type="button">Refresh</button>
+      </div>
+    </div>
+
     <div class="movie_wrapper" id="movieGrid"></div>
   </main>
 
@@ -31,7 +55,7 @@
         <a href="https://github.com/ondrejvajda" target="_blank">GitHub</a>
         <a href="mailto:ondrej.vajda@pm.me">Contact</a>
       </div>
-      <p class="footer-copy">© 2026 Ondřej Vajda</p>
+      <p class="footer-copy">&copy; 2026 Ondřej Vajda</p>
     </div>
   </footer>
 

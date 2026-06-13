@@ -2,7 +2,7 @@
 
 LocalFlix is a simple local movie library and streaming application built with FastAPI.
 
-The application scans a local media directory and provides a web interface for browsing and streaming video content.
+The application scans a local `media` directory and provides a web interface for browsing and streaming video content.
 
 ## Installation
 
@@ -10,7 +10,7 @@ The application scans a local media directory and provides a web interface for b
 
 ```bash
 git clone https://github.com/ondrejvajda/LocalFlix.git
-cd LocalFlix/app
+cd LocalFlix
 ```
 
 ### 2. Create a virtual environment
@@ -32,13 +32,13 @@ source .venv/bin/activate
 ### 3. Install dependencies
 
 ```bash
-pip install -r requirements.txt
+pip install -r app/requirements.txt
 ```
 
 ### 4. Start the server
 
 ```bash
-uvicorn main:app --port 8000
+uvicorn app.main:app --reload --port 8000
 ```
 
 ### 5. Open the application
@@ -78,6 +78,13 @@ media/
 ├── Movie2.mkv
 └── Movie3.mov
 ```
+
+Supported formats:
+
+- `.mp4`
+- `.mkv`
+- `.webm`
+- `.mov`
 
 ## License
 
