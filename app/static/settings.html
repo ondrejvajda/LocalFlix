@@ -21,17 +21,44 @@
   </header>
 
   <main>
-    <h1>COMMING SOON!</h1>
-    <pre style="font-family: monospace; line-height: 1; font-size: 22px; color: white; ">
-       █████████     
-     ██         ██   
-    ██  ███ ███  ██  
-   ██             ██ 
-   ██  █       █  ██ 
-   ██   ███████   ██ 
-    ██           ██  
-     █████████████  
-  </pre>
+    <section class="settings-page">
+      <div class="settings-heading">
+        <h2>Settings</h2>
+        <p>Customize your LocalFlix experience.</p>
+      </div>
+
+      <div class="settings-grid">
+        <article class="settings-card">
+          <div>
+            <h3>Playback</h3>
+            <p>Start movies automatically when possible.</p>
+          </div>
+          <label class="settings-option">
+            <span>Enabled</span>
+            <input id="autoplaySetting" type="checkbox" checked>
+          </label>
+        </article>
+
+        <article class="settings-card">
+          <div>
+            <h3>Progress bars</h3>
+            <p>Show watch progress on movie cards.</p>
+          </div>
+          <label class="settings-option">
+            <span>Enabled</span>
+            <input id="progressBarsSetting" type="checkbox" checked>
+          </label>
+        </article>
+
+        <article class="settings-card">
+          <div>
+            <h3>Watch progress</h3>
+            <p>Clear saved playback positions for all movies.</p>
+          </div>
+          <button class="settings-button" id="resetProgressButton" type="button">Reset progress</button>
+        </article>
+      </div>
+    </section>
   </main>
 
   <footer class="footer">

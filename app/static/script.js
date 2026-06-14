@@ -18,6 +18,17 @@ function escapeHtml(value) {
   }[char]));
 }
 
+const PROGRESS_BARS_SETTING_KEY = "localflix-show-progress-bars";
+const AUTOPLAY_SETTING_KEY = "localflix-autoplay";
+
+function areProgressBarsEnabled() {
+  return localStorage.getItem(PROGRESS_BARS_SETTING_KEY) !== "false";
+}
+
+function isAutoplayEnabled() {
+  return localStorage.getItem(AUTOPLAY_SETTING_KEY) !== "false";
+}
+
 function getMovieProgress(filename) {
   const time = Number(localStorage.getItem(`localflix-progress:${filename}`));
   const duration = Number(localStorage.getItem(`localflix-duration:${filename}`));
@@ -36,7 +47,7 @@ function renderMovies(grid, movies) {
   }
 
   grid.innerHTML = movies.map(m => {
-    const progress = getMovieProgress(m.filename);
+    const progress = areProgressBarsEnabled() ? getMovieProgress(m.filename) : 0;
     const posterStyle = m.poster
       ? ` style="background-image: url('/poster/${encodeURIComponent(m.poster)}')"`
       : "";
@@ -107,7 +118,7 @@ async function initMovieGrid() {
   const refresh = document.getElementById("refreshMovies");
   let movies = [];
 
-  function applyFilter() {
+  function updateMovieList() {
     const query = search ? search.value.trim().toLowerCase() : "";
     const filtered = query
       ? movies.filter(movie => movie.title.toLowerCase().includes(query))
@@ -139,7 +150,7 @@ async function initMovieGrid() {
     try {
       const data = await fetchMovies();
       movies = data.movies || [];
-      applyFilter();
+      updateMovieList();
     } catch (err) {
       console.error(err);
       grid.innerHTML = '<p class="empty-state">Failed to load movies.</p>';
@@ -151,18 +162,59 @@ async function initMovieGrid() {
   }
 
   if (search) {
-    search.addEventListener("input", applyFilter);
+    search.addEventListener("input", updateMovieList);
   }
 
   if (sort) {
-    sort.addEventListener("change", applyFilter);
+    sort.addEventListener("change", updateMovieList);
   }
 
   if (refresh) {
     refresh.addEventListener("click", loadMovies);
   }
 
+  window.addEventListener("localflix-settings-changed", updateMovieList);
+  window.addEventListener("storage", event => {
+    if (event.key === PROGRESS_BARS_SETTING_KEY) {
+      updateMovieList();
+    }
+  });
+
   loadMovies();
+}
+
+function initSettings() {
+  const autoplay = document.getElementById("autoplaySetting");
+  const progressBars = document.getElementById("progressBarsSetting");
+
+  if (autoplay) {
+    autoplay.checked = isAutoplayEnabled();
+    autoplay.addEventListener("change", () => {
+      localStorage.setItem(AUTOPLAY_SETTING_KEY, String(autoplay.checked));
+    });
+  }
+
+  if (progressBars) {
+    progressBars.checked = areProgressBarsEnabled();
+    progressBars.addEventListener("change", () => {
+      localStorage.setItem(PROGRESS_BARS_SETTING_KEY, String(progressBars.checked));
+      window.dispatchEvent(new Event("localflix-settings-changed"));
+    });
+  }
+
+  const resetProgress = document.getElementById("resetProgressButton");
+  if (!resetProgress) return;
+
+  resetProgress.addEventListener("click", () => {
+    Object.keys(localStorage)
+      .filter(key => key.startsWith("localflix-progress:") || key.startsWith("localflix-duration:"))
+      .forEach(key => localStorage.removeItem(key));
+
+    resetProgress.textContent = "Progress reset";
+    setTimeout(() => {
+      resetProgress.textContent = "Reset progress";
+    }, 2000);
+  });
 }
 
 function initPlayer() {
@@ -184,8 +236,12 @@ function initPlayer() {
   source.src = `/stream/${encodeURIComponent(file)}`;
   initWatchProgress(video, file);
   video.load();
-  video.play().catch(() => {});
+
+  if (isAutoplayEnabled()) {
+    video.play().catch(() => {});
+  }
 }
 
 initMovieGrid();
+initSettings();
 initPlayer();
